@@ -1,0 +1,26 @@
+﻿@model UserProfileResponse
+@{
+    ViewData["Title"] = "User Profile";
+}
+
+<h2>Hello @Model.UserName</h2>
+
+<table>
+    <tr>
+        <td style="min-width: 100px;">User Name</td>
+        <td>@Model.UserName</td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <td>Phone</td>
+        <td>@Model.Phone</td>
+    </tr>
+    <tr>
+        <td>Balance</td>
+        <td>$@string.Format($"{Model.Balance:#,0.#}")</td>
+    </tr>
+</table>
+

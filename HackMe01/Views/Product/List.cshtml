@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ProductListResponse>
+@{
+    ViewData["Title"] = "Product List";
+    ProductListRequest request = ViewBag.Request;
+    var isAuthenticated = User.Identity.IsAuthenticated;
+}
+
+<h2>Products</h2>
+
+<form method="GET" class="input-group">
+    <input type="text" name="Name" value="@(request.Name??"")" class="form-control" placeholder="Search for...">
+    <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">Search</button>
+    </span>
+</form><!-- /input-group -->
+<br />
+<div>
+    <table class="table table-striped table-hover">
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Price</td>
+            <td style="width: 100px;"></td>
+        </tr>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>$@($"{product.Price:#,0.#}")</td>
+                <td>
+                    @if (isAuthenticated)
+                    {
+                        <a href="/Order/AddToCard?id=@product.Id" class="btn btn-default">
+                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                            BUY
+                        </a>
+
+                    }
+                    else
+                    {
+
+                        <a href="/Account/Login" class="btn btn-default">
+                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                            LOGIN TO BUY
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>

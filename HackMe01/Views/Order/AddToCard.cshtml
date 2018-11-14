@@ -1,0 +1,48 @@
+﻿@model AddToCardRequest
+@{
+    ViewData["Title"] = "AddToCard";
+    string errorMessage = ViewBag.ErrorMessage;
+}
+
+<h2>Do you want to order this product ?</h2>
+
+<form method="POST">
+    <table class="table table-striped">
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Product</td>
+            <td>@Model.ProductName</td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td>$@($"{Model.Price:##,0.#}")</td>
+        </tr>
+        <tr>
+            <td>Note</td>
+            <td>
+                <textarea name="Note" class="form-control" placeholder="Type your something here?!"></textarea>
+            </td>
+        </tr>
+        <tr>
+            @if (string.IsNullOrEmpty(errorMessage))
+            {
+                <td style="text-align: right;">
+                    <a href="/Product/List" class="btn btn-default">NO</a>
+                </td>
+                <td>
+                    <input type="hidden" readonly="readonly" value="@Model.ProductId" name="ProductId" />
+                    <button class="btn btn-default">YES</button>
+                </td>
+
+            }
+            else
+            {
+                <td colspan="2" style="color: red;">@errorMessage</td>
+            }
+        </tr>
+    </table>
+
+</form>
